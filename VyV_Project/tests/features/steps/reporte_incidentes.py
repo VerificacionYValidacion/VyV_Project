@@ -3,7 +3,8 @@ import random
 from faker import Faker
 from behave import *
 
-from cuentas.models import Usuario, Reporte, Sector, Categoria
+from cuentas.models import Usuario
+from reportes.models import Reporte, Sector, Categoria
 
 use_step_matcher("re")
 
