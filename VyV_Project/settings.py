@@ -27,18 +27,19 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'cuentas.Usuario'
-AUTHENTICATION_BACKENDS = ('cuentas.backend.UsuarioAutenticacionBackend',)
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'cuentas.apps.CuentasConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cuentas.apps.CuentasConfig',
+    'reportes.apps.ReportesConfig'
 ]
 
 MIDDLEWARE = [

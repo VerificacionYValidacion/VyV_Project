@@ -12,5 +12,4 @@ Característica: Reportar problemas
     Dado que el señor Bryan tiene una sesión activa en la pantalla de Reportar
     Cuando reporta un problema con: el "sector", "dirección","categoría","evidencia","descripción" del problema
     Entonces el señor Bryan debe visualizar el mensaje "Reporte enviado" en color verde
-    Pero si el formulario está incompleto, el señor Bryan debe visualizar el mensaje "Debe llenar los campos correctamente" en color rojo
 
