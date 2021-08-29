@@ -15,10 +15,10 @@ class Sector(Enum):
 
 
 class Categoria(Enum):
-    DANOS_EN_LA_VIA_PUBLICA = "DANOS_EN_LA_VIA_PUBLICA"
-    DANOS_EN_ESPACIOS_PUBLICOS = "DANOS_EN_ESPACIOS_PUBLICOS"
-    ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA = "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA"
-    BASURA_EN_LUGARES_INCORRECTOS = "BASURA_EN_LUGARES_INCORRECTOS"
+    DANOS_EN_LA_VIA_PUBLICA = "DAÑOS EN LA VIA PUBLICA"
+    DANOS_EN_ESPACIOS_PUBLICOS = "DAÑOS EN ESPACIOS PÚBLICOS"
+    ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA = "ANIMALES ABANDONADOS EN LA VÍA PÚBLICA"
+    BASURA_EN_LUGARES_INCORRECTOS = "BASURA EN LUGARES INCORRECTOS"
 
     @classmethod
     def choices(cls):
@@ -29,7 +29,7 @@ class Categoria(Enum):
 class Reporte(models.Model):
     sector_reporte = models.CharField(max_length=40, choices=Sector.choices())
     direccion_reporte = models.CharField(max_length=120)
-    categoria_reporte = models.CharField(max_length=40, choices=Categoria.choices())
+    categoria_reporte = models.CharField(max_length=120, choices=Categoria.choices())
     evidencia_reporte = models.FileField(upload_to='uploads/%Y/%m/%d/')
     descripcion_reporte = models.CharField(max_length=240)
 
