@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportar problema</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="../static/css/estilos_formulario.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container contact-form">
+    <h3>Reporta el problema</h3>
+    <div class="contact-image">
+        <img src="https://image.flaticon.com/icons/png/512/1255/1255495.png" alt="ciudad"/>
+    </div>
+    <form action="reportes_lista.html" method="post" data-ajax="false" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group" style="text-align:center;">
+            <button type="submit" name="btnSubmit" class="btnContact">Enviar reporte</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

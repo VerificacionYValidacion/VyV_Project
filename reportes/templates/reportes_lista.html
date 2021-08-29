@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<h2>Reportes</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sector</th>
+        <th>Dirección</th>
+        <th>Categoría</th>
+        <th>Evidencia</th>
+        <th>Descripción</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for reporte in reportes %}
+    <tr>
+        <td>{{ reporte.sector_reporte }}</td>
+        <td>{{ reporte.direccion_reporte }}</td>
+        <td>{{ reporte.categoria_reporte }}</td>
+        <td>
+            <a href="{{ reporte.evidencia_reporte }}" class="btn btn-primary btn-sm" target="_blank">Descargar</a> </td>
+        <td>{{ reporte.descripcion_reporte }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
