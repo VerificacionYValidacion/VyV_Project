@@ -12,7 +12,7 @@ class ReporteForm(forms.ModelForm):
             'direccion_reporte': forms.TextInput(attrs={'class': 'form-control'}),
             'categoria_reporte': forms.Select(attrs={'class': 'form-select form-control'}),
             'evidencia_reporte': forms.FileInput(attrs={'class': 'form-control'}),
-            'descripcion_reporte': forms.Textarea(attrs={'class': 'form-control form-textarea'}),
+            'descripcion_reporte': forms.Textarea(),
         }
         labels = {
             'sector_reporte': 'Selecciona el sector del problema',
