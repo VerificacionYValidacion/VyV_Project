@@ -1,4 +1,6 @@
 from django import forms
+
+from cuentas.models import Usuario
 from reportes.models import Reporte
 
 
@@ -6,7 +8,6 @@ class ReporteForm(forms.ModelForm):
     class Meta:
         model = Reporte
         fields = ('sector_reporte', 'direccion_reporte', 'categoria_reporte', 'evidencia_reporte', 'descripcion_reporte')
-
         widgets = {
             'sector_reporte': forms.Select(attrs={'class': 'form-select form-control'}),
             'direccion_reporte': forms.TextInput(attrs={'class': 'form-control'}),

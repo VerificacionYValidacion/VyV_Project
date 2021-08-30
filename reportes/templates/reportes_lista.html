@@ -17,6 +17,7 @@
         <th>Categoría</th>
         <th>Evidencia</th>
         <th>Descripción</th>
+        <th>Nombre usuario</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
         <td>
             <a href="{{ reporte.evidencia_reporte }}" class="btn btn-primary btn-sm" target="_blank">Visualizar</a> </td>
         <td>{{ reporte.descripcion_reporte }}</td>
+        <td>{{ reporte.usuario_reporte.nombre_usuario}} {{reporte.usuario_reporte.apellido_usuario}}</td>
     </tr>
     {% endfor %}
     </tbody>

@@ -3,6 +3,9 @@ from enum import Enum
 from django.db import models
 
 # Create your models here.
+from cuentas.models import Usuario
+
+
 class Sector(Enum):
     SUR = "SUR"
     CENTRO = "CENTRO"
@@ -32,6 +35,7 @@ class Reporte(models.Model):
     categoria_reporte = models.CharField(max_length=120, choices=Categoria.choices())
     evidencia_reporte = models.FileField(upload_to='uploads/%Y/%m/%d/')
     descripcion_reporte = models.CharField(max_length=240)
+    usuario_reporte = models.ForeignKey(Usuario, on_delete=models.CASCADE, null = True)
 
     def notificar_reporte_enviado(self):
         mensaje = 'Reporte enviado'
