@@ -1,11 +1,8 @@
-import random
-
 from faker import Faker
 from behave import *
 
 from cuentas.models import Usuario
 from reportes.models import Reporte, Sector, Categoria
-
 use_step_matcher("re")
 
 
@@ -16,6 +13,7 @@ def step_impl(context):
     """
     usuario = Usuario.objects.get(correo_electronico='bryan.galindo@gmail.com')
     assert usuario.is_authenticated is True
+
 
 @step('reporta un problema con: el "sector", "dirección","categoría","evidencia","descripción" del problema')
 def step_impl(context):
