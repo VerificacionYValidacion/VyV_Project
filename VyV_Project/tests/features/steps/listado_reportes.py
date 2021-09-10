@@ -1,8 +1,6 @@
 from behave import *
 
 from cuentas.models import Usuario
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
 from reportes.models import Reporte
 
 use_step_matcher("re")
@@ -17,25 +15,47 @@ def step_impl(context):
     assert usuario.is_superuser is True
 
 
-@step('ingresa en la sección de "Reportes"')
+@step('existen reportes con estado "Pendiente"')
 def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    validate = URLValidator()
-    try:
-        validate('http://127.0.0.1:8000/lista_reportes')
-        is_valid = True
-    except ValidationError:
-        is_valid = False
-
-    assert is_valid is True
+    context.reportes_pendientes = Reporte.objects.get(estado_reporte="Pendiente")
+    assert context.reportes_pendientes > 0
 
 
-@step("puede cambiar el estado de un reporte de la lista para darle seguimiento")
+@step('cambia el estado de un reporte "Pendiente" a "En proceso"')
 def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    reporte = Reporte.objects.get(pk=8)
-    reporte.cambiar_estado(nuevo_estado)
+    context.reporte = context.reportes_pendientes[0]
+    assert context.reporte.cambiar_estado_reporte('En proceso')
+
+
+@step('Isac debe visualizar el mensaje "Estado modificado" en color verde')
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.mensaje = context.reporte.notificar_estado_modificado()
+    assert context.mensaje == "Estado modificado"
+
+
+@step('existen reportes con estado "En proceso"')
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.reportes_en_proceso = Reporte.objects.get(estado_reporte="En proceso")
+    assert context.reportes_pendientes > 0
+
+
+@step('cambia el estado de un reporte "En proceso" a "Finalizado"')
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.reporte = context.reportes_en_proceso[0]
+    assert context.reporte.cambiar_estado_reporte('Finalizado')
+

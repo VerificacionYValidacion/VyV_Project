@@ -10,10 +10,10 @@ class ReporteForm(forms.ModelForm):
         fields = ('sector_reporte', 'direccion_reporte', 'categoria_reporte', 'evidencia_reporte', 'descripcion_reporte')
         widgets = {
             'sector_reporte': forms.Select(attrs={'class': 'form-select form-control'}),
-            'direccion_reporte': forms.TextInput(attrs={'class': 'form-control'}),
+            'direccion_reporte': forms.TextInput(attrs={'class': 'form-control', 'empty_label': 'Select One'}),
             'categoria_reporte': forms.Select(attrs={'class': 'form-select form-control'}),
             'evidencia_reporte': forms.FileInput(attrs={'class': 'form-control'}),
-            'descripcion_reporte': forms.Textarea(),
+            'descripcion_reporte': forms.Textarea(attrs={'placeholder': ' Descripción del problema'}),
         }
         labels = {
             'sector_reporte': 'Selecciona el sector del problema',

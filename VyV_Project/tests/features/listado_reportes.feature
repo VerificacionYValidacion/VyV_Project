@@ -8,14 +8,14 @@ Característica: : Listar problemas reportados
   para dar un seguimiento y tomar acción al respecto.
 
 
-  Escenario: Seguimiento de problemas en estado "pendiente"
+  Escenario: Seguimiento de problemas en estado "Pendiente"
     Dado que Isac tiene una cuenta de administrador
-    Y existen reportes con estado "pendiente"
-    Cuando cambia el estado de un reporte "pendiente" a "en proceso"
-    Entonces el nuevo estado del reporte será "en proceso"
+    Y existen reportes con estado "Pendiente"
+    Cuando cambia el estado de un reporte "Pendiente" a "En proceso"
+    Entonces Isac debe visualizar el mensaje "Estado modificado" en color verde
 
-  Escenario: Seguimiento de problemas en estado "en proceso"
+  Escenario: Seguimiento de problemas en estado "En Proceso"
     Dado que Isac tiene una cuenta de administrador
-    Y existen reportes con estado "en proceso"
-    Cuando cambia el estado de un reporte "en proceso" a "finalizado"
-    Entonces el nuevo estado del reporte será "finalizado"
+    Y existen reportes con estado "En Proceso"
+    Cuando cambia el estado de un reporte "En Proceso" a "Finalizado"
+    Entonces Isac debe visualizar el mensaje "Estado modificado" en color verde
