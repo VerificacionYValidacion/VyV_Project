@@ -6,6 +6,12 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+    function prom(){
+        $("#myModal").modal('show');
+    }
+
+</script>
 </head>
 <body>
 <h2>Reportes</h2>
@@ -34,5 +40,29 @@
     {% endfor %}
     </tbody>
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        onclick="closed()">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                                         Título modal
+                </h4>
+                               Contenido modal
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+
+<a href="#" class="btn btn-primary glyphicon glyphicon-search" data-toggle="tooltip" onclick="prom()"
+   data-placement="top"
+   title = "Usar cuadro modal"> </a>
 </body>
 </html>
