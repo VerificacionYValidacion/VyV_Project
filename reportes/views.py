@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 import reportes.models
+from cuentas.models import Usuario
 from .forms import ReporteForm
 from .models import Reporte
 from django.contrib import messages
@@ -11,9 +12,13 @@ def index(request):
     reporte = Reporte()
     if request.method == 'POST':
         form_class = ReporteForm(request.POST, request.FILES)
-        if form_class.is_valid():
+        usuario = Usuario.objects.get(correo_electronico='bryan.galindo@gmail.com')
+        if form_class.is_valid() & usuario.is_authenticated:
+            form_reporte = form_class.save(commit=False)
+            form_reporte.usuario_reporte = usuario
             form_class.save()
             messages.success(request, reporte.notificar_reporte_enviado())
+            form_class = ReporteForm()
         else:
             print("Form no valido")
 
@@ -26,3 +31,12 @@ def lista_reportes(request):
     return render(request, 'reportes_lista.html', {
         'reportes': reportes
     })
+
+
+def reportes_detalles(request, reporte_number):
+    reporte = Reporte(pk=reporte_number)
+    usuario_reporte = reporte.usuario_reporte
+    sector_reporte = reporte.sector_reporte
+    direccion_reporte = reporte.direccion_reporte
+    categoria_reporte = reporte.categoria_reporte
+    return render(request, "reporte_detalle.html", locals())
