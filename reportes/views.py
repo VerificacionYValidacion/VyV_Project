@@ -3,7 +3,7 @@ from django.shortcuts import render
 import reportes.models
 from cuentas.models import Usuario
 from .forms import ReporteForm
-from .models import Reporte
+from .models import Reporte, Estado
 from django.contrib import messages
 
 
@@ -16,6 +16,7 @@ def index(request):
         if form_class.is_valid() & usuario.is_authenticated:
             form_reporte = form_class.save(commit=False)
             form_reporte.usuario_reporte = usuario
+            form_reporte.estado_reporte = Estado.PENDIENTE.value
             form_class.save()
             messages.success(request, reporte.notificar_reporte_enviado())
             form_class = ReporteForm()
