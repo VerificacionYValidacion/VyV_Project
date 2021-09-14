@@ -31,9 +31,19 @@
         <tbody>
         {% for reporte in reportes %}
             <tr>
-                <td>{{ reporte.sector_reporte }}</td>
+                <td>{{ reporte.sector_reporte.title }}</td>
                 <td>{{ reporte.direccion_reporte }}</td>
-                <td>{{ reporte.categoria_reporte }}</td>
+                <td>
+                    {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
+                        Daños en espacios públicos
+                    {% elif reporte.categoria_reporte == "DANOS_EN_LA_VIA_PUBLICA" %}
+                        Daños en la vía pública
+                    {% elif reporte.categoria_reporte == "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA" %}
+                        Animales abandonados
+                    {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
+                        Basura en lugares incorrectos
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ reporte.evidencia_reporte }}" class="btn btn-primary btn-sm"
                        target="_blank">Visualizar</a>
@@ -41,16 +51,17 @@
                 <td>{{ reporte.descripcion_reporte }}</td>
                 <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
                 <td>
-                    <button type="button" class="btn
+                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn
                            {% if reporte.estado_reporte == "Pendiente" %}
                             btn-outline-danger
                             {% elif reporte.estado_reporte == "En proceso" %}
                             btn-outline-primary
                             {% elif reporte.estado_reporte == "Finalizado" %}
                             btn-outline-success
-                           {% endif %}">
+                           {% endif %}"
+                    >
                         {{ reporte.estado_reporte }}
-                    </button>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

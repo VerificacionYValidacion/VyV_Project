@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-import reportes.models
 from cuentas.models import Usuario
 from .forms import ReporteForm
 from .models import Reporte, Estado
 from django.contrib import messages
+from django.views.generic import UpdateView
 
 
 def index(request):
@@ -32,6 +32,17 @@ def lista_reportes(request):
     return render(request, 'reportes_lista.html', {
         'reportes': reportes
     })
+
+
+def actualizar_reporte(request, pk):
+    reporte = Reporte.objects.get(id=pk)
+    if request.method == 'POST':
+        print(request.POST['btnradio'])
+        reporte.estado_reporte = request.POST['btnradio']
+        reporte.save()
+        return redirect('/lista_reportes')
+    context = {'reporte': reporte}
+    return render(request, 'reporte_actualizar.html', context)
 
 
 def reportes_detalles(request, reporte_number):

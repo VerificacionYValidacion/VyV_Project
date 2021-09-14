@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cambiar estado del reporte</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/estilos_formulario.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container contact-form div-principal">
+    <h2>Cambiar estado del reporte</h2>
+    <div class="reporte-imagen">
+        <img src="../{{ reporte.evidencia_reporte }}" alt="evidencia" width="300px" height="200px"/>
+    </div>
+    <div class="row">
+        <div class="col-md-6 left-column">
+            <p class="elemento-reporte">Categoría del reporte:</p>
+            <p>
+                {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
+                    Daños en espacios públicos
+                {% elif reporte.categoria_reporte == "DANOS_EN_LA_VIA_PUBLICA" %}
+                    Daños en la vía pública
+                {% elif reporte.categoria_reporte == "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA" %}
+                    Animales abandonados
+                {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
+                    Basura en lugares incorrectos
+                {% endif %}
+            </p>
+            <p class="elemento-reporte">Sector del reporte:</p>
+            <p>{{ reporte.sector_reporte.title }}</p>
+        </div>
+        <div class="col-md-6 right-column">
+            <p class="elemento-reporte">Dirección del reporte:</p>
+            <p>{{ reporte.direccion_reporte }}</p>
+            <p class="elemento-reporte">Descripción del reporte:</p>
+            <p>{{ reporte.descripcion_reporte }}</p>
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="actualizar-estado">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                       value="Pendiente"
+                        {% if reporte.estado_reporte == "Pendiente" %}
+                       checked
+                        {% endif %}>
+                <label class="btn btn-outline-danger" for="btnradio1">Pendiente</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                       value="En proceso"
+                        {% if reporte.estado_reporte == "En proceso" %}
+                       checked
+                        {% endif %}>
+                <label class="btn btn-outline-primary" for="btnradio2">En proceso</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                       value="Finalizado"
+                        {% if reporte.estado_reporte == "Finalizado" %}
+                       checked
+                        {% endif %}>
+                <label class="btn btn-outline-success" for="btnradio3">Finalizado</label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Aceptar</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
