@@ -20,8 +20,8 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.reportes_pendientes = Reporte.objects.get(estado_reporte="Pendiente")
-    assert context.reportes_pendientes > 0
+    context.reportes_pendientes = Reporte.objects.filter(estado_reporte="Pendiente")
+    assert context.reportes_pendientes.count > 0
 
 
 @step('cambia el estado de un reporte "Pendiente" a "En proceso"')
