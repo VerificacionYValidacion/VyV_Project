@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-import reportes.models
 from cuentas.models import Usuario
 from .forms import ReporteForm
 from .models import Reporte
+from .models import Estado
 from django.contrib import messages
+from django.views.generic import UpdateView
 
 
 def index(request):
@@ -16,6 +17,7 @@ def index(request):
         if form_class.is_valid() & usuario.is_authenticated:
             form_reporte = form_class.save(commit=False)
             form_reporte.usuario_reporte = usuario
+            form_reporte.estado_reporte = Estado.PENDIENTE.value
             form_class.save()
             messages.success(request, reporte.notificar_reporte_enviado())
             form_class = ReporteForm()
@@ -28,9 +30,19 @@ def index(request):
 
 def lista_reportes(request):
     reportes = Reporte.objects.all()
-    return render(request, 'reportes_lista.html', {
-        'reportes': reportes
-    })
+    return render(request, 'reportes_listaV2.html', {
+        'reportes': reportes})
+
+
+def actualizar_reporte(request, pk):
+    reporte = Reporte.objects.get(id=pk)
+    if request.method == 'POST':
+        print(request.POST['btnradio'])
+        reporte.estado_reporte = request.POST['btnradio']
+        reporte.save()
+        return redirect('/lista_reportes')
+    context = {'reporte': reporte}
+    return render(request, 'reporte_actualizar.html', context)
 
 
 def reportes_detalles(request, reporte_number):

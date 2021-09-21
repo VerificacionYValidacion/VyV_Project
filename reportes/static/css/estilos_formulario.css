@@ -47,6 +47,14 @@ textarea {
     color: #0062cc;
 }
 
+.contact-form h2 {
+    margin-bottom: 1%;
+    margin-top: 6%;
+    padding-top: 1%;
+    text-align: center;
+    color: #0062cc;
+}
+
 .contact-form .btnContact {
     width: 50%;
     border: none;
@@ -77,4 +85,42 @@ textarea {
     height: 35px;
     font-size: larger;
     width: 955px;
+}
+
+.left-column {
+    padding-left: 10%;
+}
+
+.right-column {
+    padding-left: 5%;
+}
+
+.reporte-imagen {
+    text-align: center;
+    padding: 1% 3% 3%;
+}
+
+.reporte-imagen img {
+    border-radius: 1em;
+}
+
+.div-principal {
+    border-radius: 1em;
+}
+
+.col-md-6 p {
+    font-size: large;
+}
+
+.actualizar-estado {
+    text-align: center;
+}
+
+.actualizar-estado button {
+    margin-top: 2%;
+}
+
+.elemento-reporte {
+    font-weight: bold;
+    color: #0062cc;
 }

@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', reportes.views.index),
     path('lista_reportes', reportes.views.lista_reportes),
+    path('actualizar_reporte/<str:pk>', reportes.views.actualizar_reporte, name='actualizar_reporte'),
 ]
 
 if settings.DEBUG:

@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="../static/css/estilos_lista.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-
-</script>
+    <script type="text/javascript"></script>
 </head>
 <body>
 <div class="contact-form">
@@ -17,33 +15,29 @@
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-             <th>Estado</th>
-            <th>Sector</th>
+            <th>Estado</th>
             <th>Dirección</th>
-            <th>Categoría</th>
             <th>Descripción</th>
             <th>Nombre usuario</th>
-            <th>Evidencia</th>
         </tr>
         </thead>
         <tbody>
         {% for reporte in reportes %}
             <tr>
                 <td>
-                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}"
-                          {% comment %} {% if reporte.estado_reporte == "Pendiente" %#}
+                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn
+                           {% if reporte.estado_reporte == "Pendiente" %}
                             btn-outline-danger
                             {% elif reporte.estado_reporte == "En proceso" %}
                             btn-outline-primary
                             {% elif reporte.estado_reporte == "Finalizado" %}
                             btn-outline-success
-                           {% endif %}"{% endcomment %}
+                           {% endif %}"
                     >
                         {{ reporte.estado_reporte }}
                     </a>
                 </td>
-                <td>{{ reporte.sector_reporte.title }}</td>
-                <td>{{ reporte.direccion_reporte }}</td>
+                <td>{{ reporte.direccion_reporte }}<br/>{{ reporte.sector_reporte.title }}</td>
                 <td>
                     {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
                         Daños en espacios públicos
@@ -54,13 +48,13 @@
                     {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
                         Basura en lugares incorrectos
                     {% endif %}
-                </td>
-                <td>{{ reporte.descripcion_reporte }}</td>
-                <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
-                <td>
-                    <a href="{{ reporte.evidencia_reporte }}" class="btn btn-primary btn-sm"
+                    <br/>
+                    {{ reporte.descripcion_reporte }}
+                    <br/>
+                    <a href="{{ reporte.evidencia_reporte }}" class="btn btn-primary btn-xs"
                        target="_blank">Visualizar</a>
                 </td>
+                <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
             </tr>
         {% endfor %}
         </tbody>

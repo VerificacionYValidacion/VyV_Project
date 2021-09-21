@@ -2,7 +2,7 @@
 # language: es
 
 @VP-3
-Característica: : Listar problemas reportados
+Característica: Listar problemas reportados
   Como Administrador
   deseo visualizar los reportes de problemas o incidentes enviados por los ciudadanos
   para dar un seguimiento y tomar acción al respecto.
@@ -16,6 +16,6 @@ Característica: : Listar problemas reportados
 
   Escenario: Seguimiento de problemas en estado "En Proceso"
     Dado que Isac tiene una cuenta de administrador
-    Y existen reportes con estado "En Proceso"
+    Y existen reportes con estado "En proceso"
     Cuando cambia el estado de un reporte "En Proceso" a "Finalizado"
     Entonces Isac debe visualizar el mensaje "Estado modificado" en color verde
