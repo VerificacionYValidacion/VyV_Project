@@ -5,7 +5,6 @@ from .forms import ReporteForm
 from .models import Reporte
 from .models import Estado
 from django.contrib import messages
-from django.views.generic import UpdateView
 
 
 def index(request):
@@ -29,15 +28,75 @@ def index(request):
 
 
 def lista_reportes(request):
-    reportes = Reporte.objects.all()
-    return render(request, 'reportes_listaV2.html', {
-        'reportes': reportes})
+    if 'filtro' in request.POST:
+        reportes_pendientes = []
+        reportes_en_proceso = []
+        reportes_finalizados = []
+        print(request.POST['select_estado'])
+        print(request.POST['select_sector'])
+        print(request.POST['select_categoria'])
+
+        if request.POST['select_estado'] != "null" and request.POST['select_sector'] != "null" and request.POST['select_categoria'] != "null":
+            reportes_filtrados = Reporte.objects.filter(estado_reporte=request.POST['select_estado'],
+                                                        sector_reporte=request.POST['select_sector'],
+                                                        categoria_reporte=request.POST['select_categoria'])
+
+        elif request.POST['select_estado'] != "null" and request.POST['select_sector'] != "null":
+            reportes_filtrados = Reporte.objects.filter(estado_reporte=request.POST['select_estado'],
+                                                        sector_reporte=request.POST['select_sector'])
+        elif request.POST['select_estado'] != "null" and request.POST['select_categoria'] != "null":
+            reportes_filtrados = Reporte.objects.filter(estado_reporte=request.POST['select_estado'],
+                                                        categoria_reporte=request.POST['select_categoria'])
+
+        elif request.POST['select_sector'] != "null" and request.POST['select_categoria'] != "null":
+            reportes_filtrados = Reporte.objects.filter(sector_reporte=request.POST['select_sector'],
+                                                        categoria_reporte=request.POST['select_categoria'])
+        elif request.POST['select_estado'] != "null":
+            reportes_filtrados = Reporte.objects.filter(estado_reporte=request.POST['select_estado'])
+
+        elif request.POST['select_sector'] != "null":
+            reportes_filtrados = Reporte.objects.filter(sector_reporte=request.POST['select_sector'])
+            reportes_pendientes = reportes_filtrados
+
+        elif request.POST['select_categoria'] != "null":
+            reportes_filtrados = Reporte.objects.filter(categoria_reporte=request.POST['select_categoria'])
+            reportes_pendientes = reportes_filtrados
+
+        else:
+            reportes_pendientes = Reporte.objects.filter(estado_reporte='Pendiente').order_by('-id')
+            reportes_en_proceso = Reporte.objects.filter(estado_reporte='En proceso')
+            reportes_finalizados = Reporte.objects.filter(estado_reporte='Finalizado')
+
+        if request.POST['select_estado'] == 'Pendiente':
+            reportes_pendientes = reportes_filtrados
+        elif request.POST['select_estado'] == 'En proceso':
+            reportes_en_proceso = reportes_filtrados
+        elif request.POST['select_estado'] == 'Finalizado':
+            reportes_finalizados = reportes_filtrados
+
+        context = {
+            'reportes_pendientes': reportes_pendientes,
+            'reportes_en_proceso': reportes_en_proceso,
+            'reportes_finalizados': reportes_finalizados
+        }
+    else:
+        reportes_pendientes = Reporte.objects.filter(estado_reporte='Pendiente').order_by('-id')
+        reportes_en_proceso = Reporte.objects.filter(estado_reporte='En proceso')
+        reportes_finalizados = Reporte.objects.filter(estado_reporte='Finalizado')
+        context = {
+            'reportes_pendientes': reportes_pendientes,
+            'reportes_en_proceso': reportes_en_proceso,
+            'reportes_finalizados': reportes_finalizados
+        }
+    return render(request, 'reportes_listaV2.html', context)
 
 
 def actualizar_reporte(request, pk):
     reporte = Reporte.objects.get(id=pk)
     if request.method == 'POST':
         print(request.POST['btnradio'])
+        print(request.POST['observacion'])
+        reporte.observacion = request.POST['observacion']
         reporte.estado_reporte = request.POST['btnradio']
         reporte.save()
         return redirect('/lista_reportes')

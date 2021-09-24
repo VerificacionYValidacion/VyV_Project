@@ -30,14 +30,14 @@
         {% for reporte in reportes %}
             <tr>
                 <td>
-                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}"
-                          {% comment %} {% if reporte.estado_reporte == "Pendiente" %#}
+                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}
+                          {% if reporte.estado_reporte == "Pendiente" %}
                             btn-outline-danger
                             {% elif reporte.estado_reporte == "En proceso" %}
                             btn-outline-primary
                             {% elif reporte.estado_reporte == "Finalizado" %}
                             btn-outline-success
-                           {% endif %}"{% endcomment %}
+                           {% endif %}"
                     >
                         {{ reporte.estado_reporte }}
                     </a>

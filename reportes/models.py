@@ -45,6 +45,7 @@ class Reporte(models.Model):
     descripcion_reporte = models.CharField(max_length=240)
     usuario_reporte = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
     estado_reporte = models.CharField(max_length=40, choices=Estado.choices())
+    observacion = models.CharField(max_length=500, null=True)
 
     def notificar_reporte_enviado(self):
         mensaje = 'Reporte enviado'

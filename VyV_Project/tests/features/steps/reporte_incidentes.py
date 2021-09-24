@@ -3,6 +3,7 @@ from behave import *
 
 from cuentas.models import Usuario
 from reportes.models import Reporte, Sector, Categoria
+
 use_step_matcher("re")
 
 
@@ -21,7 +22,8 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     faker = Faker(['en-US'])
-    context.reporte = Reporte(Sector.SUR, faker.address(), Categoria.DANOS_EN_ESPACIOS_PUBLICOS, faker.file_name(category='image'), faker.text())
+    context.reporte = Reporte(Sector.SUR, faker.address(), Categoria.DANOS_EN_ESPACIOS_PUBLICOS,
+                              faker.file_name(category='image'), faker.text())
     assert isinstance(context.reporte, Reporte)
 
 
@@ -32,4 +34,3 @@ def step_impl(context):
     """
     context.mensaje = context.reporte.notificar_reporte_enviado()
     assert context.mensaje == "Reporte enviado"
-

@@ -42,11 +42,24 @@
     <form method="POST">
         {% csrf_token %}
         <div class="actualizar-estado">
+             <div class="form-group">
+                 <label>Observación:</label>
+                 <textarea class="form-control" id="observacion" rows="2"
+                           {% if reporte.estado_reporte == "Finalizado" %}
+                                disabled
+                            {% endif %}
+                           name="observacion">{{ reporte.observacion }}</textarea>
+
+
+             </div>
+            <br/>
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
                        value="Pendiente"
                         {% if reporte.estado_reporte == "Pendiente" %}
                        checked
+                        {% else %}
+                       disabled
                         {% endif %}>
                 <label class="btn btn-outline-danger" for="btnradio1">Pendiente</label>
 
@@ -54,6 +67,8 @@
                        value="En proceso"
                         {% if reporte.estado_reporte == "En proceso" %}
                        checked
+                        {% elif reporte.estado_reporte == "Finalizado" %}
+                       disabled
                         {% endif %}>
                 <label class="btn btn-outline-primary" for="btnradio2">En proceso</label>
 
