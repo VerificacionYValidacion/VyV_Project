@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de reportes</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="../static/css/estilos_formulario.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container contact-form">
+    <div class="contact-image">
+        <img src="https://image.flaticon.com/icons/png/512/1255/1255495.png" alt="ciudad"/>
+    </div>
+    <form method="post">
+        <h3>Reporta el problema</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text" for="selectSector">Selecciona el sector del problema</label>
+                    <select class="form-select form-control" aria-label="Default select example" id="selectSector">
+                        <option selected>Sector del problema</option>
+                        <option value="1">SUR</option>
+                        <option value="2">CENTRO</option>
+                        <option value="3">NORTE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text" for="txtDireccion">Ingresa la dirección del problema</label>
+                    <input type="text" name="txtDireccion" id="txtDireccion" class="form-control"
+                           placeholder="Dirección" value=""/>
+                </div>
+                <div class="form-group">
+                    <label class="text" for="selectCategoria">Selecciona la categoría del problema</label>
+                    <select class="form-select form-control" aria-label="Default select example" id="selectCategoria">
+                        <option selected>Categoría del problema</option>
+                        <option value="1">DAÑOS EN LA VIA PÚBLICA</option>
+                        <option value="2">DAÑOS EN ESPACIOS PÚBLICOS</option>
+                        <option value="3">ANIMALES ABANDONADOS EN LA VÍA PÚBLICA</option>
+                        <option value="3">BASURA EN LUGARES INCORRECTOS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Adjunta una evidencia del problema</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="btnSubmit" class="btnContact" value="Enviar Reporte"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <textarea name="txtMsg" class="form-control form-textarea" placeholder="Describe el problema"
+                              style="width: 100%; height: 250px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportar problema</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="../static/css/estilos_formulario.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container contact-form">
+    <h3>Reporta el problema</h3>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="contact-image">
+        <img src="https://image.flaticon.com/icons/png/512/1255/1255495.png" alt="ciudad"/>
+    </div>
+    <form action="" method="post" data-ajax="false" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Selecciona el sector del problema:</label>
+                    {{ form.sector_reporte }}
+                </div>
+                <div class="form-group">
+                    <label>Ingresa la dirección del problema:</label>
+                    {{ form.direccion_reporte }}
+                </div>
+                <div class="form-group">
+                    <label>Selecciona la categoría del problema:</label>
+                    {{ form.categoria_reporte }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Describe el problema:</label>
+                    {{ form.descripcion_reporte }}
+                </div>
+                <div class="form-group">
+                    <label>Adjunta una evidencia del problema:</label>
+                    {{ form.evidencia_reporte }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="text-align:center; padding-top: 8%;">
+            <button type="submit" name="btnSubmit" class="btnContact">Enviar reporte</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="../static/css/estilos_lista.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
+</head>
+<body>
+<div class="contact-form">
+    <h2>Reportes</h2>
+    <form method="POST" enctype=multipart/form-data>
+        {% csrf_token %}
+        <h3> Filtrar tabla:</h3>
+        <div class="row">
+            <div class="col-sm">
+                <label>Filtrar por estado</label>
+                <select class="form-control" name="select_estado">
+                    <option value=null>Seleccionar..</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <label>Filtrar por sector</label>
+                <select class="form-control" id="select_sector" name="select_sector">
+                    <option value=null>Seleccionar..</option>
+                    <option value="SUR">Sur</option>
+                    <option value="CENTRO">Centro</option>
+                    <option value="NORTE">Norte</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <label>Filtrar por categoría</label>
+                <select class="form-control" id="select_categoria" name="select_categoria">
+                    <option value=null>Seleccionar..</option>
+                    <option value="DANOS_EN_LA_VIA_PUBLICA">Daños en la vía pública</option>
+                    <option value="DANOS_EN_ESPACIOS_PUBLICOS">Daños en espacios públicos</option>
+                    <option value="ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA">Animales abandonados</option>
+                    <option value="BASURA_EN_LUGARES_INCORRECTOS">Basura en lugares incorrectos</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary" name="filtro" value="Filtrar" type="submit" style="float: right; margin: 10px;">Filtrar tabla</button>
+    </form>
+    <input class="form-control" id="buscador" type="text" placeholder="Buscar">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Estado</th>
+            <th>Dirección</th>
+            <th>Descripción</th>
+            <th>Nombre usuario</th>
+        </tr>
+        </thead>
+        <tbody id="table">
+        {% for reporte in reportes_pendientes %}
+            <tr>
+                <td>
+                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}
+                          {% if reporte.estado_reporte == "Pendiente" %}
+                            btn-outline-danger
+                            {% elif reporte.estado_reporte == "En proceso" %}
+                            btn-outline-primary
+                            {% elif reporte.estado_reporte == "Finalizado" %}
+                            btn-outline-success
+                           {% endif %}"
+                    >
+                        {{ reporte.estado_reporte }}
+                    </a>
+                </td>
+                <td>{{ reporte.direccion_reporte }}<br/>{{ reporte.sector_reporte.title }}</td>
+                <td>
+                    {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
+                        Daños en espacios públicos
+                    {% elif reporte.categoria_reporte == "DANOS_EN_LA_VIA_PUBLICA" %}
+                        Daños en la vía pública
+                    {% elif reporte.categoria_reporte == "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA" %}
+                        Animales abandonados
+                    {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
+                        Basura en lugares incorrectos
+                    {% endif %}
+                    <br/>
+                    {{ reporte.descripcion_reporte }}
+                    <br/>
+                    <a href="{{ reporte.evidencia_reporte }}" class="btn btn-link btn-sm"
+                       target="_blank">Visualizar evidencia</a>
+                </td>
+                <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
+            </tr>
+        {% endfor %}
+        {% for reporte in reportes_en_proceso %}
+            <tr>
+                <td>
+                   <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}
+                          {% if reporte.estado_reporte == "Pendiente" %}
+                            btn-outline-danger
+                            {% elif reporte.estado_reporte == "En proceso" %}
+                            btn-outline-primary
+                            {% elif reporte.estado_reporte == "Finalizado" %}
+                            btn-outline-success
+                           {% endif %}"
+                    >
+                        {{ reporte.estado_reporte }}
+                    </a>
+                </td>
+                <td>{{ reporte.direccion_reporte }}<br/>{{ reporte.sector_reporte.title }}</td>
+                <td>
+                    {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
+                        Daños en espacios públicos
+                    {% elif reporte.categoria_reporte == "DANOS_EN_LA_VIA_PUBLICA" %}
+                        Daños en la vía pública
+                    {% elif reporte.categoria_reporte == "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA" %}
+                        Animales abandonados
+                    {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
+                        Basura en lugares incorrectos
+                    {% endif %}
+                    <br/>
+                    {{ reporte.descripcion_reporte }}
+                    <br/>
+                    <a href="{{ reporte.evidencia_reporte }}" class="btn btn-link btn-sm"
+                       target="_blank">Visualizar evidencia</a>
+                </td>
+                <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
+            </tr>
+        {% endfor %}
+        {% for reporte in reportes_finalizados %}
+            <tr>
+                <td>
+                    <a href='{% url 'actualizar_reporte' reporte.id %}' class="btn {{ clase_estado }}
+                          {% if reporte.estado_reporte == "Pendiente" %}
+                            btn-outline-danger
+                            {% elif reporte.estado_reporte == "En proceso" %}
+                            btn-outline-primary
+                            {% elif reporte.estado_reporte == "Finalizado" %}
+                            btn-outline-success
+                           {% endif %}"
+                    >
+                        {{ reporte.estado_reporte }}
+                    </a>
+                </td>
+                <td>{{ reporte.direccion_reporte }}<br/>{{ reporte.sector_reporte.title }}</td>
+                <td>
+                    {% if reporte.categoria_reporte == "DANOS_EN_ESPACIOS_PUBLICOS" %}
+                        Daños en espacios públicos
+                    {% elif reporte.categoria_reporte == "DANOS_EN_LA_VIA_PUBLICA" %}
+                        Daños en la vía pública
+                    {% elif reporte.categoria_reporte == "ANIMALES_ABANDONADOS_EN_LA_VIA_PUBLICA" %}
+                        Animales abandonados
+                    {% elif reporte.categoria_reporte == "BASURA_EN_LUGARES_INCORRECTOS" %}
+                        Basura en lugares incorrectos
+                    {% endif %}
+                    <br/>
+                    {{ reporte.descripcion_reporte }}
+                    <br/>
+                    <a href="{{ reporte.evidencia_reporte }}" class="btn btn-link btn-sm"
+                       target="_blank">Visualizar evidencia</a>
+                </td>
+                <td>{{ reporte.usuario_reporte.nombre_usuario }} {{ reporte.usuario_reporte.apellido_usuario }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#buscador").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#table tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+</body>
+</html>
